@@ -10,7 +10,9 @@ namespace Week2_TextRPG
     internal class GameManager
     {
         private Dialogue dialogue = new Dialogue();
-        private Character character;
+        private Utils utils = new Utils();
+
+        private Player player;
         private Inventory inventory;
         private Shop shop;
         private Inn inn;
@@ -18,26 +20,31 @@ namespace Week2_TextRPG
 
         public void Run()
         {
+            // Intro
+
+            Console.Clear();
+            dialogue.Intro(1);
+            string name = dialogue.AskPlayerName();
+            player = new Player(name);
+            Console.Clear();
+            Console.Write(name);
+            dialogue.Intro(2);
+            Console.ReadKey(true);
+            Console.Clear();
+
             while (true)
             {
-                // Intro
-                Console.Clear();
-                dialogue.Intro(1);
-                string name = dialogue.AskPlayerName();
-                character = new Character(name);
-                Console.Clear();
-                Console.Write(name);
-                dialogue.Intro(2);
-
                 // Main Menu
-                Console.Clear();
+                
                 ShowMainMenu();
+                Console.Write(">> ");
                 string input = Console.ReadLine();
 
                 switch (input)
                 {
-                    case "1":
-                        character.DisplayStatus();
+                    case "1": 
+                        Console.Clear();
+                        player.DisplayStatus();
                         break;
                     case "2":
                         inventory.ShowInventory();
@@ -53,11 +60,14 @@ namespace Week2_TextRPG
                         break;
                     case "0":
                         Console.WriteLine("게임을 종료합니다.");
+                        Console.ReadKey();
                         return;
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
                         break;
                 }
+
+                Console.WriteLine();
             }
         }
 
@@ -76,8 +86,7 @@ namespace Week2_TextRPG
             Console.WriteLine("[5] 던전 입장");
             Console.WriteLine("[0] 게임 종료");
             Console.WriteLine();
-            Console.WriteLine("────────────────────────────");
-            Console.Write(">>");
+            Console.WriteLine("────────────────────────────────");
         }
     }
 }

@@ -9,6 +9,5 @@
             GameManager game = new GameManager();
             game.Run();
         }
-       
     }
 }
