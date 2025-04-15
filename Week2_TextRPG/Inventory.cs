@@ -8,19 +8,12 @@ namespace Week2_TextRPG
 {
     internal class Inventory
     {
-        private GameManager gameManager;
         private Utils utils = new Utils();
         
         public List<Item> items = new List<Item>();
 
-        public Inventory(GameManager gm)
-        {
-            gameManager = gm;
-        }
-
         public void InventoryMenu()
         {
-
             ShowInventory();
 
             Dictionary<string, (string label, Action action)> options = new()
@@ -28,8 +21,7 @@ namespace Week2_TextRPG
                 { "1", ("아이템 장착 관리", ManageEquip) }
             };
 
-            utils.WaitForMenu(options, gameManager.ShowMainMenu);
-
+            utils.WaitForMenu(options);
         }
 
         public void ShowInventory()
@@ -67,7 +59,6 @@ namespace Week2_TextRPG
             };
 
             utils.WaitForMenu(options, InventoryMenu);
-
 
         }
     }

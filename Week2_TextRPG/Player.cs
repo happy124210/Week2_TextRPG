@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 
 namespace Week2_TextRPG
-{
+{ 
     internal class Player(string name)
     {
         private Utils utils = new Utils();
@@ -33,11 +33,6 @@ namespace Week2_TextRPG
             };
 
             utils.WaitForMenu(options);
-
-            Console.Write(">> ");
-            string input = Console.ReadLine();
-
-            Console.Clear();
         }
 
         public void DisplayStatus()
@@ -56,7 +51,6 @@ namespace Week2_TextRPG
             Console.WriteLine($" 방어구   : {(string.IsNullOrEmpty(armor) ? "없음" : armor)}");
             Console.WriteLine("==================================");
             Console.WriteLine();
-
         }
     }
 }

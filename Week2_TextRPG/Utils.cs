@@ -10,7 +10,6 @@ namespace Week2_TextRPG
     {
         public void WaitForMenu(Dictionary<string, (string label, Action action)> options, Action onReturn = null)
         {
-
             string input;
 
             while (true)
@@ -31,7 +30,7 @@ namespace Week2_TextRPG
                 if (input == "0")
                 {
                     Console.Clear();
-                    onReturn?.Invoke(); //이전 메뉴 다시 실행
+                    (onReturn ?? GameManager.Instance.ShowMainMenu)(); //이전 메뉴 다시 실행
                     return;
                 }
 
@@ -39,7 +38,7 @@ namespace Week2_TextRPG
                 if (options.ContainsKey(input))
                 {
                     Console.Clear();
-                    options[input].action.Invoke();// 연결된 함수 실행
+                    options[input].action.Invoke(); // 연결된 함수 실행
                 }
 
                 else

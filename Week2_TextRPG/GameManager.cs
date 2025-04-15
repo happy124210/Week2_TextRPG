@@ -10,6 +10,9 @@ namespace Week2_TextRPG
 {
     internal class GameManager
     {
+        private static GameManager instance;
+        public static GameManager Instance => instance ??= new GameManager();
+
         private Dialogue dialogue;
         private Utils utils;
         private Inventory inventory;
@@ -22,7 +25,7 @@ namespace Week2_TextRPG
         {
             dialogue = new Dialogue();
             utils = new Utils();
-            inventory = new Inventory(this);
+            inventory = new Inventory();
             shop = new Shop();
             inn = new Inn();
             dungeon = new Dungeon();
@@ -46,7 +49,7 @@ namespace Week2_TextRPG
             while (true)
             {
                 // Main Menu
-                
+                Console.Clear();
                 ShowMainMenu();
                 Console.Write(">> ");
                 string input = Console.ReadLine();
