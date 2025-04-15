@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,7 +31,7 @@ namespace Week2_TextRPG
                 if (input == "0")
                 {
                     Console.Clear();
-                    (onReturn ?? GameManager.Instance.ShowMainMenu)(); //이전 메뉴 다시 실행
+                    (onReturn ?? GameManager.Instance.ShowMainMenu)(); //default값 메인메뉴
                     return;
                 }
 
@@ -47,5 +48,12 @@ namespace Week2_TextRPG
                 }
             }
         }
-    }
+
+        public void BackToMenu(Action action)
+        {
+            Console.Clear();
+            action.Invoke();
+        }
+    }   
+
 }

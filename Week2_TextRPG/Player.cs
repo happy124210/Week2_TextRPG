@@ -11,12 +11,15 @@ namespace Week2_TextRPG
     internal class Player(string name)
     {
         private Utils utils = new Utils();
+        private static int BaseAttack = 10;
+        private static int BaseDefense = 5;
+
 
         public int level = 0;
         public string name = name;
         public string job = "전사";
-        public int attack = 10;
-        public int defense = 5;
+        public int attack = BaseAttack;
+        public int defense = BaseDefense;
         public int hp = 100;
         public int gold = 1500;
         public string weapon;
@@ -37,8 +40,7 @@ namespace Week2_TextRPG
 
         public void DisplayStatus()
         {
-            Console.WriteLine("[ 캐릭터 상태창 ]");
-            Console.WriteLine();
+            Console.WriteLine("[ 캐릭터 능력치 확인 ]\n");
             Console.WriteLine("==================================");
             Console.WriteLine($" 이름     : {name}");
             Console.WriteLine($" 레벨     : Lv. {level}");

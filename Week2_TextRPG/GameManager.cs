@@ -30,6 +30,10 @@ namespace Week2_TextRPG
             inn = new Inn();
             dungeon = new Dungeon();
             player = new Player("고윤아");
+
+            inventory.items.Add(ItemDatabase.AllItems[0]);// 낡은 검
+            inventory.items.Add(ItemDatabase.AllItems[1]);
+            inventory.items.Add(ItemDatabase.AllItems[2]); // 천 갑옷
         }
 
         public void Run()
@@ -92,7 +96,7 @@ namespace Week2_TextRPG
             Console.WriteLine();
             Console.WriteLine("▶ MAIN MENU");
             Console.WriteLine();
-            Console.WriteLine("[1] 캐릭터 상태 보기");
+            Console.WriteLine("[1] 캐릭터 능력치");
             Console.WriteLine("[2] 인벤토리");
             Console.WriteLine("[3] 상점");
             Console.WriteLine("[4] 여관");
