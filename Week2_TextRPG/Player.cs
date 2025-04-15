@@ -14,7 +14,6 @@ namespace Week2_TextRPG
         private static int BaseAttack = 10;
         private static int BaseDefense = 5;
 
-
         public int level = 0;
         public string name = name;
         public string job = "전사";
@@ -53,6 +52,19 @@ namespace Week2_TextRPG
             Console.WriteLine($" 방어구   : {(string.IsNullOrEmpty(armor) ? "없음" : armor)}");
             Console.WriteLine("==================================");
             Console.WriteLine();
+        }
+        public void UpdateStats(List<Item> equippedItems)
+        {
+            attack = BaseAttack;
+            defense = BaseDefense;
+
+            foreach (var item in equippedItems)
+            {
+                if (item.itemType == ItemType.Weapon)
+                    attack += item.stat;
+                else if (item.itemType == ItemType.Armor)
+                    defense += item.stat;
+            }
         }
     }
 }

@@ -25,11 +25,12 @@ namespace Week2_TextRPG
         {
             dialogue = new Dialogue();
             utils = new Utils();
-            inventory = new Inventory();
+            player = new Player("고윤아");
+            inventory = new Inventory(player);
             shop = new Shop();
             inn = new Inn();
             dungeon = new Dungeon();
-            player = new Player("고윤아");
+            
 
             inventory.items.Add(ItemDatabase.AllItems[0]);// 낡은 검
             inventory.items.Add(ItemDatabase.AllItems[1]);

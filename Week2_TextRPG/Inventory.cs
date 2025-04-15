@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace Week2_TextRPG
 {
-    internal class Inventory
+    internal class Inventory(Player player)
     {
         private Utils utils = new Utils();
-        private Player player;
         
         public List<Item> items = new List<Item>();
 
@@ -90,6 +90,7 @@ namespace Week2_TextRPG
                 if (selected.isEquipped)
                 {
                     selected.isEquipped = false;
+                    player.UpdateStats(GetEquippedItems());
                     Console.WriteLine($"\n{selected.name}을(를) 해제했습니다.");
                     Console.Write("\n계속하려면 아무 키나 누르세요.");
                 }
@@ -103,6 +104,7 @@ namespace Week2_TextRPG
                     }
 
                     selected.isEquipped = true;
+                    player.UpdateStats(GetEquippedItems());
                     Console.WriteLine($"\n{selected.name}을(를) 장착했습니다.");
                     Console.Write("\n계속하려면 아무 키나 누르세요.");
                 }
@@ -118,6 +120,11 @@ namespace Week2_TextRPG
 
                 Console.WriteLine($"[{i+1}] {equippedMark} {items[i].name} | ({statLabel} +{items[i].stat}) | {items[i].description}");
             }
+        }
+
+        public List<Item> GetEquippedItems()
+        {
+            return items.Where(item => item.isEquipped).ToList();
         }
     }
 }
