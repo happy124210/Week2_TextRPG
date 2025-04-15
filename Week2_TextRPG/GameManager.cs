@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,28 +10,38 @@ namespace Week2_TextRPG
 {
     internal class GameManager
     {
-        private Dialogue dialogue = new Dialogue();
-        private Utils utils = new Utils();
-
-        private Player player;
+        private Dialogue dialogue;
+        private Utils utils;
         private Inventory inventory;
         private Shop shop;
         private Inn inn;
         private Dungeon dungeon;
+        private Player player;
+
+        public void Initialize()
+        {
+            dialogue = new Dialogue();
+            utils = new Utils();
+            inventory = new Inventory(this);
+            shop = new Shop();
+            inn = new Inn();
+            dungeon = new Dungeon();
+            player = new Player("고윤아");
+        }
 
         public void Run()
         {
             // Intro
 
-            Console.Clear();
-            dialogue.Intro(1);
-            string name = dialogue.AskPlayerName();
-            player = new Player(name);
-            Console.Clear();
-            Console.Write(name);
-            dialogue.Intro(2);
-            Console.ReadKey(true);
-            Console.Clear();
+            //Console.Clear();
+            //dialogue.Intro(1);
+            //string name = dialogue.AskPlayerName();
+            //player = new Player(name);
+            //Console.Clear();
+            //Console.Write(name);
+            //dialogue.Intro(2);
+            //Console.ReadKey(true);
+            //Console.Clear();
 
             while (true)
             {
@@ -42,12 +53,11 @@ namespace Week2_TextRPG
 
                 switch (input)
                 {
-                    case "1": 
-                        Console.Clear();
-                        player.DisplayStatus();
+                    case "1":
+                        player.StatusMenu();
                         break;
                     case "2":
-                        inventory.ShowInventory();
+                        inventory.InventoryMenu();
                         break;
                     case "3":
                         shop.OpenShop();

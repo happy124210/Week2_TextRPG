@@ -8,24 +8,45 @@ namespace Week2_TextRPG
 {
     internal class Utils
     {
-        public void WaitForExit()
+        public void WaitForMenu(Dictionary<string, (string label, Action action)> options, Action onReturn = null)
         {
-            Console.WriteLine();
-            Console.WriteLine("[0] 메인 메뉴로 돌아가기");
+
             string input;
 
-            do
+            while (true)
             {
+                // 메뉴 출력
+                Console.WriteLine();
+                foreach (var option in options)
+                {
+                    Console.WriteLine($"[{option.Key}] {option.Value.label}");
+                }
+                Console.WriteLine("[0] 돌아가기");
+
+                // 입력 처리
                 Console.Write(">> ");
                 input = Console.ReadLine();
-                if (input != "0")
+
+                // 0이면 나가기
+                if (input == "0")
+                {
+                    Console.Clear();
+                    onReturn?.Invoke(); //이전 메뉴 다시 실행
+                    return;
+                }
+
+                // 
+                if (options.ContainsKey(input))
+                {
+                    Console.Clear();
+                    options[input].action.Invoke();// 연결된 함수 실행
+                }
+
+                else
                 {
                     Console.WriteLine("잘못된 입력입니다.");
                 }
-            } while (input != "0");
-
-            Console.Clear();
+            }
         }
-
     }
 }

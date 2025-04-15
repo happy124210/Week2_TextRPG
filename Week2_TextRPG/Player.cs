@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
@@ -9,6 +10,8 @@ namespace Week2_TextRPG
 {
     internal class Player(string name)
     {
+        private Utils utils = new Utils();
+
         public int level = 0;
         public string name = name;
         public string job = "전사";
@@ -19,6 +22,23 @@ namespace Week2_TextRPG
         public string weapon;
         public string armor;
 
+        public void StatusMenu()
+        {
+            Console.Clear();
+            DisplayStatus();
+
+            Dictionary<string, (string label, Action action)> options = new()
+            {
+                // 세부 메뉴
+            };
+
+            utils.WaitForMenu(options);
+
+            Console.Write(">> ");
+            string input = Console.ReadLine();
+
+            Console.Clear();
+        }
 
         public void DisplayStatus()
         {
