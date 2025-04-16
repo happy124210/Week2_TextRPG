@@ -8,7 +8,7 @@ namespace Week2_TextRPG
 {
     internal class Shop
     {
-        public void OpenShop()
+        public void ShopMenu()
         {
 
         }

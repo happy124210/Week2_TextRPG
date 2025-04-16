@@ -68,7 +68,7 @@ namespace Week2_TextRPG
                         inventory.InventoryMenu();
                         break;
                     case "3":
-                        shop.OpenShop();
+                        shop.ShopMenu();
                         break;
                     case "4":
                         inn.Rest();

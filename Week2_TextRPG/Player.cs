@@ -18,6 +18,8 @@ namespace Week2_TextRPG
         public string name = name;
         public string job = "전사";
         public int attack = BaseAttack;
+        public string bonusAttack = "";
+        public string bonusDefense = "";
         public int defense = BaseDefense;
         public int hp = 100;
         public int gold = 1500;
@@ -44,8 +46,8 @@ namespace Week2_TextRPG
             Console.WriteLine($" 이름     : {name}");
             Console.WriteLine($" 레벨     : Lv. {level}");
             Console.WriteLine($" 직업     : {job}");
-            Console.WriteLine($" 공격력   : {attack}");
-            Console.WriteLine($" 방어력   : {defense}");
+            Console.WriteLine($" 공격력   : {attack} {bonusAttack}");
+            Console.WriteLine($" 방어력   : {defense} {bonusDefense}");
             Console.WriteLine($" 체력     : {hp}");
             Console.WriteLine($" 골드     : {gold} G");
             Console.WriteLine($" 무기     : {(string.IsNullOrEmpty(weapon) ? "없음" : weapon)}");
@@ -53,17 +55,27 @@ namespace Week2_TextRPG
             Console.WriteLine("==================================");
             Console.WriteLine();
         }
+
         public void UpdateStats(List<Item> equippedItems)
         {
             attack = BaseAttack;
             defense = BaseDefense;
+            bonusAttack = "";
+            bonusDefense = "";
 
             foreach (var item in equippedItems)
             {
                 if (item.itemType == ItemType.Weapon)
+                {
                     attack += item.stat;
+                    bonusAttack = $"(+{item.stat})";
+                }
+                    
                 else if (item.itemType == ItemType.Armor)
+                {
                     defense += item.stat;
+                    bonusDefense = $"(+{item.stat})";
+                }   
             }
         }
     }

@@ -100,7 +100,10 @@ namespace Week2_TextRPG
                     foreach (var item in items)
                     {
                         if (item.itemType == selected.itemType && item.isEquipped)
+                        {
                             item.isEquipped = false;
+                        }
+                            
                     }
 
                     selected.isEquipped = true;
@@ -108,6 +111,9 @@ namespace Week2_TextRPG
                     Console.WriteLine($"\n{selected.name}을(를) 장착했습니다.");
                     Console.Write("\n계속하려면 아무 키나 누르세요.");
                 }
+                
+                Console.ReadKey();
+
             }
         }
 
