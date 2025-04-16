@@ -1,136 +1,127 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace Week2_TextRPG
 {
     internal class Inventory(Player player)
     {
+        public List<Item> playerItems = new List<Item>();
+
         private Utils utils = new Utils();
-        
-        public List<Item> items = new List<Item>();
+
+        private bool showIndex;
+        private string title;
+        private string menuMessage1;
+        private string quitMessage;
+        private string infoMessage;
+
+        enum InventoryState
+        { 
+            Viewing, // 아이템 목록 보기
+            Managing // 장착/해제 모드
+        }
+
 
         public void InventoryMenu()
         {
-            ShowInventory();
 
-            Dictionary<string, (string label, Action action)> options = new()
-            {
-                { "1", ("아이템 장착 관리", ManageEquip) }
-            };
-
-            utils.WaitForMenu(options);
-        }
-
-        public void ShowInventory()
-        {
-            Console.Clear();
-            Console.WriteLine("[ 인벤토리 ]\n");
-
-            // 비어있을 때 문구 출력
-            if (!items.Any())
-            {
-                Console.WriteLine("인벤토리가 비어 있습니다.");
-                return;
-            }
-
-            // 아이템 출력
-            foreach (var item in items)
-            {
-                string equippedMark = item.isEquipped ? "(E)" : "";
-                string statLabel = item.itemType == ItemType.Weapon ? "공격력" : "방어력";
-
-                Console.WriteLine($"{equippedMark} {item.name} | ({statLabel} +{item.stat}) | {item.description}");
-            }
-        }
-
-        public void ManageEquip()
-        {
+            InventoryState state = InventoryState.Viewing;
+            
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("[ 장착 관리 ]\n");
 
-                if (!items.Any())
+                // Viewing 상태
+                if (state == InventoryState.Viewing)
                 {
-                    Console.WriteLine("인벤토리가 비어 있습니다.");
-                    return;
+                    showIndex = false;
+                    title = "[ 인벤토리 ]";
+                    menuMessage1 = "[1] 장착하기";
+                    quitMessage = "[0] 메인 메뉴로 돌아가기";
+                    infoMessage = "";
+                }
+                // Managing 상태
+                else if (state == InventoryState.Managing)
+                {
+                    showIndex = true;
+                    title = "[ 장착 관리 ]";
+                    menuMessage1 = "";
+                    quitMessage = "[0] 취소하기";
+                    infoMessage = "장착 또는 해제할 아이템을 선택하세요.";
                 }
 
-                // 번호 붙여서 출력
-                ShowItems();
+                // 출력
+                Console.WriteLine(title);
+                Console.WriteLine("");
+                utils.PrintItems(playerItems, showIndex, true, false);
+                Console.WriteLine("");
+                Console.WriteLine(menuMessage1);
+                Console.WriteLine(quitMessage);
+                Console.WriteLine(infoMessage);
+                Console.Write(">> ");
 
-                // 번호 입력 받기
-                Console.WriteLine("\n[0] 취소하기");
-                Console.Write("\n장착 또는 해제할 아이템 번호를 입력하세요: ");
+
                 string input = Console.ReadLine();
 
-                if (input == "0")
+                // 인벤토리 보기 상태 상호작용
+                if (state == InventoryState.Viewing)
                 {
-                    return;
-                }
 
-                // 유효성 검사
-                if (!int.TryParse(input, out int index) || index < 1 || index > items.Count)
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.ReadKey();
-                    continue;
-                }
-
-                // 장착 처리
-
-                Item selected = items[index - 1];
-
-                if (selected.isEquipped)
-                {
-                    selected.isEquipped = false;
-                    player.UpdateStats(GetEquippedItems());
-                    Console.WriteLine($"\n{selected.name}을(를) 해제했습니다.");
-                    Console.Write("\n계속하려면 아무 키나 누르세요.");
-                }
-                else
-                {
-                    // 같은 타입 장비 해제
-                    foreach (var item in items)
+                    if (input == "1")
                     {
-                        if (item.itemType == selected.itemType && item.isEquipped)
-                        {
-                            item.isEquipped = false;
-                        }
-                            
+                        state = InventoryState.Managing;
                     }
-
-                    selected.isEquipped = true;
-                    player.UpdateStats(GetEquippedItems());
-                    Console.WriteLine($"\n{selected.name}을(를) 장착했습니다.");
-                    Console.Write("\n계속하려면 아무 키나 누르세요.");
+                    else if (input == "0")
+                    {
+                        return;
+                    }
+                        
                 }
-                
-                Console.ReadKey();
 
+                // 아이템 장착 관리 상태 상호작용
+                else if (state == InventoryState.Managing)
+                { 
+                    if (input == "0")
+                    {
+                        state = InventoryState.Viewing;
+                    }
+                    else if (int.TryParse(input, out int index) && index >= 1 && index <= playerItems.Count)
+                    {
+                        Console.WriteLine();
+                        ToggleEquip(playerItems[index - 1]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        Console.ReadKey();
+                    }
+                }
             }
         }
 
-        private void ShowItems()
+        public void ToggleEquip(Item selected)
         {
-            for (int i = 0; i < items.Count; i++)
+            if (selected.isEquipped)
             {
-                string equippedMark = items[i].isEquipped ? "(E)" : "";
-                string statLabel = items[i].itemType == ItemType.Weapon ? "공격력" : "방어력";
-
-                Console.WriteLine($"[{i+1}] {equippedMark} {items[i].name} | ({statLabel} +{items[i].stat}) | {items[i].description}");
+                selected.isEquipped = false;
+                Console.WriteLine($"{selected.name}을(를) 해제했습니다.");
             }
+            else
+            {
+                foreach (var item in playerItems)
+                    if (item.itemType == selected.itemType && item.isEquipped)
+                        item.isEquipped = false;
+
+                selected.isEquipped = true;
+                Console.WriteLine($"{selected.name}을(를) 장착했습니다.");
+            }
+
+            player.UpdateStats(GetEquippedItems());
+            Console.ReadKey();
         }
 
         public List<Item> GetEquippedItems()
         {
-            return items.Where(item => item.isEquipped).ToList();
+            return playerItems.Where(item => item.isEquipped).ToList();
         }
     }
 }

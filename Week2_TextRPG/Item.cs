@@ -13,7 +13,6 @@ namespace Week2_TextRPG
         Armor
     }
 
-
     internal class Item
     {
         public string name;
@@ -22,6 +21,7 @@ namespace Week2_TextRPG
         public string description;
         public int price;
         public bool isEquipped;
+        public bool isPurchased;
     }
 
 }

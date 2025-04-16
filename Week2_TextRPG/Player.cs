@@ -31,12 +31,11 @@ namespace Week2_TextRPG
             Console.Clear();
             DisplayStatus();
 
-            Dictionary<string, (string label, Action action)> options = new()
-            {
-                // 세부 메뉴
-            };
+            Console.WriteLine("[0] 메인 메뉴로 돌아가기");
+            Console.Write(">> ");
 
-            utils.WaitForMenu(options);
+            string input = Console.ReadLine();
+            if (input == "0") return;
         }
 
         public void DisplayStatus()
