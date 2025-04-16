@@ -27,6 +27,7 @@ namespace Week2_TextRPG
             Selling // 판매 모드
         }
 
+
         public void ShopMenu()
         {
 
@@ -87,8 +88,11 @@ namespace Week2_TextRPG
                 Console.WriteLine("");
                 Console.WriteLine(menuMessage1);
                 Console.WriteLine(menuMessage2);
+                Console.WriteLine("");
                 Console.WriteLine(quitMessage);
+                Console.WriteLine("");
                 Console.WriteLine(infoMessage);
+                Console.WriteLine("");
                 Console.Write(">> ");
 
                 string input = Console.ReadLine();

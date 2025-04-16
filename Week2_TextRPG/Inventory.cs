@@ -17,7 +17,7 @@ namespace Week2_TextRPG
         enum InventoryState
         { 
             Viewing, // 아이템 목록 보기
-            Managing // 장착/해제 모드
+            Managing // 관리 모드
         }
 
 
@@ -55,8 +55,11 @@ namespace Week2_TextRPG
                 utils.PrintItems(playerItems, showIndex, true, false);
                 Console.WriteLine("");
                 Console.WriteLine(menuMessage1);
+                Console.WriteLine("");
                 Console.WriteLine(quitMessage);
+                Console.WriteLine("");
                 Console.WriteLine(infoMessage);
+                Console.WriteLine("");
                 Console.Write(">> ");
 
 
@@ -65,16 +68,18 @@ namespace Week2_TextRPG
                 // 인벤토리 보기 상태 상호작용
                 if (state == InventoryState.Viewing)
                 {
+                    switch (input)
+                    {
+                        case "1":
+                            state = InventoryState.Managing;
+                            break;
 
-                    if (input == "1")
-                    {
-                        state = InventoryState.Managing;
+                        case "0":
+                            return;
+
+                        default:
+                            break;
                     }
-                    else if (input == "0")
-                    {
-                        return;
-                    }
-                        
                 }
 
                 // 아이템 장착 관리 상태 상호작용
@@ -88,11 +93,6 @@ namespace Week2_TextRPG
                     {
                         Console.WriteLine();
                         ToggleEquip(playerItems[index - 1]);
-                    }
-                    else
-                    {
-                        Console.WriteLine("잘못된 입력입니다.");
-                        Console.ReadKey();
                     }
                 }
             }

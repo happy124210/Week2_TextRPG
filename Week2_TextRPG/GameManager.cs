@@ -28,7 +28,7 @@ namespace Week2_TextRPG
             player = new Player("고윤아");
             inventory = new Inventory(player);
             shop = new Shop(inventory, player);
-            inn = new Inn();
+            inn = new Inn(player);
             dungeon = new Dungeon();
         }
 
@@ -66,7 +66,7 @@ namespace Week2_TextRPG
                         shop.ShopMenu();
                         break;
                     case "4":
-                        inn.Rest();
+                        inn.InnMenu();
                         break;
                     case "5":
                         dungeon.Enter();
@@ -76,7 +76,6 @@ namespace Week2_TextRPG
                         Console.ReadKey();
                         return;
                     default:
-                        Console.WriteLine("잘못된 입력입니다.");
                         break;
                 }
 

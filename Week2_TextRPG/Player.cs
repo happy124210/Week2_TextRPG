@@ -19,8 +19,9 @@ namespace Week2_TextRPG
         public string job = "전사";
         public int attack = BaseAttack;
         public string bonusAttack = "";
-        public string bonusDefense = "";
         public int defense = BaseDefense;
+        public string bonusDefense = "";
+        
         public int hp = 100;
         public int gold = 1500;
         public string weapon;
