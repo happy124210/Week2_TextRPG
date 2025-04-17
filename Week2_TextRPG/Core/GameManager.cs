@@ -35,15 +35,19 @@ namespace Week2_TextRPG.Core
         {
             //Intro
 
-            //Console.Clear();
-            //dialogue.Intro(1);
-            //string name = dialogue.AskPlayerName();
-            //player = new Player(name);
-            //Console.Clear();
-            //Console.Write(name);
-            //dialogue.Intro(2);
-            //Console.ReadKey(true);
-            //Console.Clear();
+            if (player.isIntro)
+            {
+                Console.Clear();
+                dialogue.Intro(1);
+                string name = dialogue.AskPlayerName();
+                player.name = name;
+                Console.Clear();
+                Console.Write(name);
+                dialogue.Intro(2);
+                Console.ReadKey(true);
+                Console.Clear();
+            }
+            
 
             while (true)
             {

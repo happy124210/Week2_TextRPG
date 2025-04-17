@@ -11,7 +11,6 @@ namespace Week2_TextRPG.Data
         Weapon,
         Armor
     }
-
     internal class Item
     {
         public string name;

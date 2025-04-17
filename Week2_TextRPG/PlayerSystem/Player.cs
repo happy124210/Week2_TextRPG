@@ -21,9 +21,12 @@ namespace Week2_TextRPG.PlayerSystem
         public int exp = 0;
         public int gold = 1500;
 
+        public bool isIntro = false;
 
         public string weapon;
         public string armor;
+
+        public List<Item> havingItems = new List<Item>();
 
         public void StatusMenu()
         {
@@ -54,7 +57,7 @@ namespace Week2_TextRPG.PlayerSystem
             Console.WriteLine();
         }
 
-        public void UpdateStats(List<Item> equippedItems)
+        public void UpdateStats(IEnumerable<Item> equippedItems)
         {
             attack = BaseAttack;
             defense = BaseDefense;

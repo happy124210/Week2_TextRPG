@@ -6,8 +6,6 @@ namespace Week2_TextRPG.PlayerSystem
 {
     internal class Inventory(Player player)
     {
-        public List<Item> playerItems = new List<Item>();
-
         private Utils utils = new Utils();
 
         private bool showIndex;
@@ -54,7 +52,7 @@ namespace Week2_TextRPG.PlayerSystem
                 // 메뉴 출력
                 Console.WriteLine(title);
                 Console.WriteLine("");
-                utils.PrintItems(playerItems, showIndex, true, false);
+                utils.PrintItems(player.havingItems, showIndex, true, false);
                 Console.WriteLine("");
                 Console.WriteLine(menuMessage1);
                 Console.WriteLine("");
@@ -90,10 +88,10 @@ namespace Week2_TextRPG.PlayerSystem
                     {
                         state = InventoryState.Viewing;
                     }
-                    else if (int.TryParse(input, out int index) && index >= 1 && index <= playerItems.Count)
+                    else if (int.TryParse(input, out int index) && index >= 1 && index <= player.havingItems.Count)
                     {
                         Console.WriteLine();
-                        ToggleEquip(playerItems[index - 1]);
+                        ToggleEquip(player.havingItems[index - 1]);
                     }
                 }
             }
@@ -108,7 +106,7 @@ namespace Week2_TextRPG.PlayerSystem
             }
             else
             {
-                foreach (var item in playerItems)
+                foreach (var item in player.havingItems)
                     if (item.itemType == selected.itemType && item.isEquipped)
                         item.isEquipped = false;
 
@@ -120,9 +118,9 @@ namespace Week2_TextRPG.PlayerSystem
             Console.ReadKey();
         }
 
-        public List<Item> GetEquippedItems()
+        public IEnumerable<Item> GetEquippedItems()
         {
-            return playerItems.Where(item => item.isEquipped).ToList();
+            return player.havingItems.Where(item => item.isEquipped);
         }
     }
 }

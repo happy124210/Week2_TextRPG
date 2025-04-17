@@ -76,7 +76,7 @@ namespace Week2_TextRPG.ShopSystem
                     showPrice = false;
                     showSellPrice = true;
                     title = "[ 아이템 판매하기 ]";
-                    shopItems = inventory.playerItems.ToList();
+                    shopItems = player.havingItems.ToList();
                     menuMessage1 = "";
                     menuMessage2 = "";
                     quitMessage = "[0] 취소하기";
@@ -161,7 +161,7 @@ namespace Week2_TextRPG.ShopSystem
                 Console.WriteLine($"{selected.name}을(를) 구매했습니다.");
                 player.gold -= selected.price;
                 selected.isPurchased = true;
-                inventory.playerItems.Add(selected);
+                player.havingItems.Add(selected);
                 inventory.ToggleEquip(selected);
             }
         }
@@ -184,7 +184,7 @@ namespace Week2_TextRPG.ShopSystem
             Console.WriteLine($"{selected.name}을(를) 판매했습니다. (+{sellPrice}원)");
             player.gold += sellPrice;
             selected.isPurchased = false;
-            inventory.playerItems.Remove(selected);
+            player.havingItems.Remove(selected);
             Console.ReadKey();
         }
 
