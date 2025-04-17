@@ -1,4 +1,4 @@
-﻿namespace Week2_TextRPG
+﻿namespace Week2_TextRPG.Core
 {
     internal class Program
     {

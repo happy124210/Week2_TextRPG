@@ -4,8 +4,9 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using Week2_TextRPG.Data;
 
-namespace Week2_TextRPG
+namespace Week2_TextRPG.Core
 {
     internal class Utils
     {

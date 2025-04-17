@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Week2_TextRPG.PlayerSystem;
 
-namespace Week2_TextRPG
+namespace Week2_TextRPG.InnSysytem
 {
     internal class Inn(Player player)
     {
@@ -15,7 +11,6 @@ namespace Week2_TextRPG
         private string quitMessage;
         private string infoMessage;
 
-        
 
         enum InnState
         {
@@ -48,6 +43,7 @@ namespace Week2_TextRPG
                     infoMessage = "잠을 자고 체력을 회복합니다.";
                 }  
 
+                // 메뉴 출력
                 Console.WriteLine(title);
                 Console.WriteLine("");
                 Console.WriteLine($"보유 골드: {player.gold}원");
@@ -57,7 +53,6 @@ namespace Week2_TextRPG
                 Console.WriteLine(quitMessage);
                 Console.WriteLine("");
                 Console.WriteLine(infoMessage);
-                Console.WriteLine("");
                 Console.Write(">> ");
 
                 string input = Console.ReadLine();
@@ -108,11 +103,13 @@ namespace Week2_TextRPG
             {
                 Console.WriteLine("돈이 부족합니다.");
                 Console.ReadKey();
+                return;
             }
             else if (player.hp == 100)
             {
                 Console.WriteLine("이미 체력이 100입니다.");
                 Console.ReadKey();
+                return;
             }
             else
             {
@@ -120,6 +117,7 @@ namespace Week2_TextRPG
                 player.hp = 100;
                 Console.WriteLine("회복을 완료했습니다.");
                 Console.ReadKey();
+                return;
             }
         }
     }

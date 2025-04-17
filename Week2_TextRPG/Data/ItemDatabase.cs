@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Week2_TextRPG
+namespace Week2_TextRPG.Data
 {
     internal static class ItemDatabase
     {

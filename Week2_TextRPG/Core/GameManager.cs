@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using Week2_TextRPG.PlayerSystem;
+using Week2_TextRPG.DungeonSystem;
+using Week2_TextRPG.ShopSystem;
+using Week2_TextRPG.InnSysytem;
+using Week2_TextRPG.Data;
+using Week2_TextRPG.UI;
 
-namespace Week2_TextRPG
+namespace Week2_TextRPG.Core
 {
     internal class GameManager
     {
@@ -29,7 +28,7 @@ namespace Week2_TextRPG
             inventory = new Inventory(player);
             shop = new Shop(inventory, player);
             inn = new Inn(player);
-            dungeon = new Dungeon();
+            dungeon = new Dungeon(player);
         }
 
         public void Run()
@@ -69,7 +68,7 @@ namespace Week2_TextRPG
                         inn.InnMenu();
                         break;
                     case "5":
-                        dungeon.Enter();
+                        dungeon.DungeonMenu();
                         break;
                     case "0":
                         Console.WriteLine("게임을 종료합니다.");

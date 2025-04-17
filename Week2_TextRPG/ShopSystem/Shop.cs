@@ -1,6 +1,9 @@
 ﻿using System.Data;
+using Week2_TextRPG.Core;
+using Week2_TextRPG.Data;
+using Week2_TextRPG.PlayerSystem;
 
-namespace Week2_TextRPG
+namespace Week2_TextRPG.ShopSystem
 {
     internal class Shop(Inventory inventory, Player player)
     {
@@ -80,6 +83,7 @@ namespace Week2_TextRPG
                     infoMessage = "판매할 아이템을 선택하세요.";
                 }
 
+                // 메뉴 출력
                 Console.WriteLine(title);
                 Console.WriteLine("");
                 Console.WriteLine($"보유 골드: {player.gold}원");
@@ -92,7 +96,6 @@ namespace Week2_TextRPG
                 Console.WriteLine(quitMessage);
                 Console.WriteLine("");
                 Console.WriteLine(infoMessage);
-                Console.WriteLine("");
                 Console.Write(">> ");
 
                 string input = Console.ReadLine();

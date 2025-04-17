@@ -1,6 +1,8 @@
 ﻿using System.Data;
+using Week2_TextRPG.Core;
+using Week2_TextRPG.Data;
 
-namespace Week2_TextRPG
+namespace Week2_TextRPG.PlayerSystem
 {
     internal class Inventory(Player player)
     {
@@ -49,7 +51,7 @@ namespace Week2_TextRPG
                     infoMessage = "장착 또는 해제할 아이템을 선택하세요.";
                 }
 
-                // 출력
+                // 메뉴 출력
                 Console.WriteLine(title);
                 Console.WriteLine("");
                 utils.PrintItems(playerItems, showIndex, true, false);
@@ -59,7 +61,6 @@ namespace Week2_TextRPG
                 Console.WriteLine(quitMessage);
                 Console.WriteLine("");
                 Console.WriteLine(infoMessage);
-                Console.WriteLine("");
                 Console.Write(">> ");
 
 

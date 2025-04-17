@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
+﻿using Week2_TextRPG.Core;
+using Week2_TextRPG.Data;
 
-namespace Week2_TextRPG
+namespace Week2_TextRPG.PlayerSystem
 { 
     internal class Player(string name)
     {
@@ -18,12 +13,15 @@ namespace Week2_TextRPG
         public string name = name;
         public string job = "전사";
         public int attack = BaseAttack;
-        public string bonusAttack = "";
         public int defense = BaseDefense;
+        public string bonusAttack = "";
         public string bonusDefense = "";
         
         public int hp = 100;
+        public int exp = 0;
         public int gold = 1500;
+
+
         public string weapon;
         public string armor;
 
@@ -76,6 +74,18 @@ namespace Week2_TextRPG
                     defense += item.stat;
                     bonusDefense = $"(+{item.stat})";
                 }   
+            }
+        }
+        private void GainExp(int amount)
+        {
+            exp += amount;
+
+            // 레벨업 조건
+            if (exp >= level * 20)
+            {
+                exp -= level * 20;
+                level++;
+                Console.WriteLine("레벨이 올랐습니다!");
             }
         }
     }
