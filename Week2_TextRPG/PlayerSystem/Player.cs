@@ -12,7 +12,7 @@ namespace Week2_TextRPG.PlayerSystem
             hp = data.hp;
             exp = data.exp;
             gold = data.gold;
-            isIntro = false;
+            isIntro = data.isIntro;
 
             // 인벤토리 직접 연결
             havingItems = data.havingItems ?? new List<Item>();
@@ -56,6 +56,7 @@ namespace Week2_TextRPG.PlayerSystem
             DisplayStatus();
 
             Console.WriteLine("[0] 메인 메뉴로 돌아가기");
+            Console.WriteLine("────────────────────────────────");
             Console.Write(">> ");
 
             string input = Console.ReadLine();

@@ -10,6 +10,7 @@
             GameManager game = new GameManager();
             game.Initialize();
             game.Run();
+            Environment.Exit(0);
         }
     }
 }

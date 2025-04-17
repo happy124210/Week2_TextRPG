@@ -59,6 +59,7 @@ namespace Week2_TextRPG.Core
                 Console.Clear();
                 Console.Write(name);
                 dialogue.Intro(2);
+                player.isIntro = false;
                 Console.ReadKey(true);
                 Console.Clear();
             }

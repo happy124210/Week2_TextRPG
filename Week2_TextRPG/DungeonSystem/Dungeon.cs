@@ -59,16 +59,15 @@ namespace Week2_TextRPG.DungeonSystem
                 {
                     ShowStageList(); // 던전 목록 출력
                     Console.WriteLine("");
-                    Console.WriteLine(menuMessage1);
                 }
                 else if (state == DungeonState.Preparing)
                 {
                     ShowStageInfo(stage); // 선택한 스테이지 정보 출력
                 }
-                
-                Console.WriteLine("");
+
+                Console.WriteLine(menuMessage1);
                 Console.WriteLine(quitMessage);
-                Console.WriteLine("");
+                Console.WriteLine("────────────────────────────────");
                 Console.WriteLine(infoMessage);
                 Console.Write(">> ");
 
@@ -116,6 +115,7 @@ namespace Week2_TextRPG.DungeonSystem
                             Console.WriteLine("체력이 부족하여 던전에 입장할 수 없습니다.");
                             Console.WriteLine("회복 후 다시 도전해 주세요.");
                             Console.ReadKey();
+                            state = DungeonState.Viewing;
                             return;
                         }
 
@@ -130,16 +130,17 @@ namespace Week2_TextRPG.DungeonSystem
         {
             for (int i = 0; i < stages.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}] {stages[i].name}");
+                Console.WriteLine($"[{i + 1}] {stages[i].name} | 방어력 {stages[i].requiredDefense} 이상 권장");
             }
         }
 
 
         private void ShowStageInfo(Stage stage)
         {
-            Console.WriteLine($"보유 골드: {player.gold}원\n");
-            Console.WriteLine($"설명: {stage.description}");
-            Console.WriteLine($"보상: {stage.baseReward}G, 경험치 {stage.rewardExp}\n");
+            Console.WriteLine($"{stage.description}\n");
+            Console.WriteLine("▶ 보상 정보");
+            Console.WriteLine($"획득 골드: {stage.baseReward}G + 추가 골드");
+            Console.WriteLine($"경험치 {stage.rewardExp}\n");
         }
         private void Enter(Stage stage)
         {
@@ -147,23 +148,23 @@ namespace Week2_TextRPG.DungeonSystem
             Console.Clear();
             Console.WriteLine($"[ {stage.name} 도전 결과 ]\n");
 
-            int diff = stage.requiredDefense - player.defense;
+            
 
             // 방어력이 부족할 경우 → 40% 확률로 실패
             if (player.defense < stage.requiredDefense && random.Next(100) < 40)
             {
-                Console.WriteLine("던전 실패... 방어력이 부족했습니다.\n");
-                player.hp /= 2; // 체력 절반
+                Console.WriteLine("당신은 적의 거센 공격을 견디지 못하고 물러섰습니다.\n");
+                player.hp /= 2;
                 Console.WriteLine($"체력이 절반으로 감소했습니다. (현재 HP: {player.hp})");
             }
             else
             {
-                Console.WriteLine("던전 클리어!\n");
+                Console.WriteLine("한 줄기 빛이 길을 비춥니다. 당신은 무사히 돌아왔습니다.\n");
 
                 // 체력 소모 계산
                 int baseDamage = random.Next(20, 36); // 20~35
-                int damageModifier = diff * -1;       // 내 방어력이 높으면 마이너스
-                int finalDamage = Math.Max(1, baseDamage + damageModifier); // 최소 1
+                int diff = stage.requiredDefense - player.defense;
+                int finalDamage = Math.Max(1, baseDamage + diff); // 최소 1
 
                 player.hp -= finalDamage;
                 if (player.hp < 0) player.hp = 0;

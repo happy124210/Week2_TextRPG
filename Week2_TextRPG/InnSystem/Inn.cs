@@ -49,9 +49,8 @@ namespace Week2_TextRPG.InnSysytem
                 Console.WriteLine($"보유 골드: {player.gold}원");
                 Console.WriteLine("");
                 Console.WriteLine(menuMessage1);
-                Console.WriteLine("");
                 Console.WriteLine(quitMessage);
-                Console.WriteLine("");
+                Console.WriteLine("────────────────────────────────");
                 Console.WriteLine(infoMessage);
                 Console.Write(">> ");
 
@@ -83,6 +82,7 @@ namespace Week2_TextRPG.InnSysytem
                     {
                         case "1":
                             Sleep();
+                            state = InnState.Viewing;
                             break;
 
                         case "0":

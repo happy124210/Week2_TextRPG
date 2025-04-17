@@ -58,6 +58,7 @@ namespace Week2_TextRPG.PlayerSystem
                 Console.WriteLine("");
                 Console.WriteLine(quitMessage);
                 Console.WriteLine(infoMessage);
+                Console.WriteLine("────────────────────────────────");
                 Console.Write(">> ");
 
 
@@ -91,6 +92,7 @@ namespace Week2_TextRPG.PlayerSystem
                     {
                         Console.WriteLine();
                         ToggleEquip(player.havingItems[index - 1]);
+                        state = InventoryState.Viewing;
                     }
                 }
             }

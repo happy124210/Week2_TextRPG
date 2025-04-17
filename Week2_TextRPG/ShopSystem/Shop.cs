@@ -94,6 +94,7 @@ namespace Week2_TextRPG.ShopSystem
                 Console.WriteLine(menuMessage2);
                 Console.WriteLine("");
                 Console.WriteLine(quitMessage);
+                Console.WriteLine("────────────────────────────────");
                 Console.WriteLine(infoMessage);
                 Console.Write(">> ");
 
@@ -143,6 +144,7 @@ namespace Week2_TextRPG.ShopSystem
                     else if (int.TryParse(input, out int index) && index >= 1 && index <= shopItems.Count)
                     {
                         SellItem(shopItems[index - 1]);
+                        state = ShopState.Viewing;
                     }
                 }
             }
