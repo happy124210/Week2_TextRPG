@@ -6,7 +6,7 @@ using System;
 
 namespace Week2_TextRPG.DungeonSystem
 {
-    internal class Dungeon(Player player)
+    public class Dungeon(Player player)
     {
 
         private List<Stage> stages = StageDatabase.AllStages;

@@ -2,7 +2,7 @@
 
 namespace Week2_TextRPG.UI
 {
-    internal class Dialogue
+    public class Dialogue
     {
         public void ShowText(List<string> txtList)
         {

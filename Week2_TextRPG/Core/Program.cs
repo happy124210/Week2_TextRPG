@@ -1,6 +1,6 @@
 ﻿namespace Week2_TextRPG.Core
 {
-    internal class Program
+    public class Program
     {
         
         static void Main(string[] args)

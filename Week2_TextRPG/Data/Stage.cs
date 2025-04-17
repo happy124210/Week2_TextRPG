@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Week2_TextRPG.Data
+﻿namespace Week2_TextRPG.Data
 {
-    enum Difficulty
+    public enum Difficulty
     {
         Easy,
         Normal,
         Hard
     }
 
-    internal class Stage
+    public class Stage
     {
         public string name;
         public int requiredDefense;

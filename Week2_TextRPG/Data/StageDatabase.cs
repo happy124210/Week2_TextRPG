@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Week2_TextRPG.Data
 {
-    internal static class StageDatabase
+    public static class StageDatabase
     {
         public static List<Stage> AllStages { get; } = new List<Stage>
         {

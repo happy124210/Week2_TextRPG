@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Week2_TextRPG.Data
 {
-    internal static class ItemDatabase
+    public static class ItemDatabase
     {
         public static List<Item> AllItems { get; } = new List<Item>
         {

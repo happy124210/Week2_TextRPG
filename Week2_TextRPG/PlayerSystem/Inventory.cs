@@ -4,7 +4,7 @@ using Week2_TextRPG.Data;
 
 namespace Week2_TextRPG.PlayerSystem
 {
-    internal class Inventory(Player player)
+    public class Inventory(Player player)
     {
         private Utils utils = new Utils();
 
@@ -57,7 +57,6 @@ namespace Week2_TextRPG.PlayerSystem
                 Console.WriteLine(menuMessage1);
                 Console.WriteLine("");
                 Console.WriteLine(quitMessage);
-                Console.WriteLine("");
                 Console.WriteLine(infoMessage);
                 Console.Write(">> ");
 

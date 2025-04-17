@@ -7,7 +7,7 @@ using Week2_TextRPG.UI;
 
 namespace Week2_TextRPG.Core
 {
-    internal class GameManager
+    public class GameManager
     {
         private static GameManager instance;
         public static GameManager Instance => instance ??= new GameManager();
@@ -24,8 +24,23 @@ namespace Week2_TextRPG.Core
         {
             dialogue = new Dialogue();
             utils = new Utils();
-            player = new Player("고윤아");
-            inventory = new Inventory(player);
+
+            SaveData loadedData = SaveSystem.Load();
+            if (loadedData != null)
+            {
+                // 기존 데이터 복원
+                player = new Player(loadedData);
+                inventory = new Inventory(player);
+                player.havingItems = loadedData.havingItems ?? new List<Item>();
+                player.UpdateStats(player.havingItems.Where(i => i.isEquipped));
+            }
+            else
+            {
+                // 세이브 파일이 없을 경우 새 게임 시작
+                player = new Player("default");
+                inventory = new Inventory(player);
+            }
+
             shop = new Shop(inventory, player);
             inn = new Inn(player);
             dungeon = new Dungeon(player);
@@ -74,6 +89,10 @@ namespace Week2_TextRPG.Core
                     case "5":
                         dungeon.DungeonMenu();
                         break;
+                    case "6":
+                        SaveSystem.Save(player);
+                        Console.ReadKey();
+                        break;
                     case "0":
                         Console.WriteLine("게임을 종료합니다.");
                         Console.ReadKey();
@@ -98,7 +117,8 @@ namespace Week2_TextRPG.Core
             Console.WriteLine("[2] 인벤토리");
             Console.WriteLine("[3] 상점");
             Console.WriteLine("[4] 여관");
-            Console.WriteLine("[5] 던전 입장");
+            Console.WriteLine("[5] 던전");
+            Console.WriteLine("[6] 저장");
             Console.WriteLine();
             Console.WriteLine("[0] 게임 종료");
             Console.WriteLine();

@@ -3,28 +3,50 @@ using Week2_TextRPG.Data;
 
 namespace Week2_TextRPG.PlayerSystem
 { 
-    internal class Player(string name)
+    public class Player
     {
-        private Utils utils = new Utils();
+        public Player(SaveData data)
+        {
+            name = data.name;
+            level = data.level;
+            hp = data.hp;
+            exp = data.exp;
+            gold = data.gold;
+            isIntro = false;
+
+            // 인벤토리 직접 연결
+            havingItems = data.havingItems ?? new List<Item>();
+
+            // 능력치 반영
+            UpdateStats(havingItems.Where(item => item.isEquipped));
+        }
+        public Player(string name)
+        {
+            this.name = name;
+            level = 1;
+            hp = 100;
+            exp = 0;
+            gold = 1500;
+            isIntro = true;
+            havingItems = new List<Item>();
+        }
+
         private static int BaseAttack = 10;
         private static int BaseDefense = 5;
 
         public int level = 0;
-        public string name = name;
+        public string name;
         public string job = "전사";
         public int attack = BaseAttack;
         public int defense = BaseDefense;
-        public string bonusAttack = "";
-        public string bonusDefense = "";
-        
         public int hp = 100;
         public int exp = 0;
         public int gold = 1500;
 
-        public bool isIntro = false;
+        public string bonusAttack = "";
+        public string bonusDefense = "";
 
-        public string weapon;
-        public string armor;
+        public bool isIntro = true;
 
         public List<Item> havingItems = new List<Item>();
 
@@ -42,6 +64,9 @@ namespace Week2_TextRPG.PlayerSystem
 
         public void DisplayStatus()
         {
+            string weaponName = havingItems.FirstOrDefault(i => i.isEquipped && i.itemType == ItemType.Weapon)?.name ?? "없음";
+            string armorName = havingItems.FirstOrDefault(i => i.isEquipped && i.itemType == ItemType.Armor)?.name ?? "없음";
+
             Console.WriteLine("[ 캐릭터 능력치 확인 ]\n");
             Console.WriteLine("==================================");
             Console.WriteLine($" 이름     : {name}");
@@ -50,9 +75,9 @@ namespace Week2_TextRPG.PlayerSystem
             Console.WriteLine($" 공격력   : {attack} {bonusAttack}");
             Console.WriteLine($" 방어력   : {defense} {bonusDefense}");
             Console.WriteLine($" 체력     : {hp}");
-            Console.WriteLine($" 골드     : {gold} G");
-            Console.WriteLine($" 무기     : {(string.IsNullOrEmpty(weapon) ? "없음" : weapon)}");
-            Console.WriteLine($" 방어구   : {(string.IsNullOrEmpty(armor) ? "없음" : armor)}");
+            Console.WriteLine($" 골드     : {gold}G");
+            Console.WriteLine($" 무기     : {weaponName}");
+            Console.WriteLine($" 방어구   : {armorName}");
             Console.WriteLine("==================================");
             Console.WriteLine();
         }
@@ -71,7 +96,7 @@ namespace Week2_TextRPG.PlayerSystem
                     attack += item.stat;
                     bonusAttack = $"(+{item.stat})";
                 }
-                    
+                 
                 else if (item.itemType == ItemType.Armor)
                 {
                     defense += item.stat;

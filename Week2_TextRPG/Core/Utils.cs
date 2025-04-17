@@ -8,7 +8,7 @@ using Week2_TextRPG.Data;
 
 namespace Week2_TextRPG.Core
 {
-    internal class Utils
+    public class Utils
     {
         //public void WaitForMenu(Dictionary<string, (string label, Action action)> options, Action onReturn = null)
         //{

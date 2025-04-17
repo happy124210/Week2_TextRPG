@@ -2,7 +2,7 @@
 
 namespace Week2_TextRPG.InnSysytem
 {
-    internal class Inn(Player player)
+    public class Inn(Player player)
     {
         private static int InnFee = 500;
 

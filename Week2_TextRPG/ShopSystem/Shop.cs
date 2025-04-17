@@ -5,7 +5,7 @@ using Week2_TextRPG.PlayerSystem;
 
 namespace Week2_TextRPG.ShopSystem
 {
-    internal class Shop(Inventory inventory, Player player)
+    public class Shop(Inventory inventory, Player player)
     {
         private List<Item> shopItems;
 
@@ -94,7 +94,6 @@ namespace Week2_TextRPG.ShopSystem
                 Console.WriteLine(menuMessage2);
                 Console.WriteLine("");
                 Console.WriteLine(quitMessage);
-                Console.WriteLine("");
                 Console.WriteLine(infoMessage);
                 Console.Write(">> ");
 
