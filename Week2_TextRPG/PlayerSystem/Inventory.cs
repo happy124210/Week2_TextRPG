@@ -44,7 +44,7 @@ namespace Week2_TextRPG.PlayerSystem
                     showIndex = true;
                     title = "[ 장착 관리 ]";
                     menuMessage1 = "";
-                    quitMessage = "[0] 취소하기";
+                    quitMessage = "취소하기";
                     infoMessage = "장착 또는 해제할 아이템을 선택하세요.";
                 }
 
@@ -52,7 +52,7 @@ namespace Week2_TextRPG.PlayerSystem
                 Utils.ColoredText($"{title}\n\n", ConsoleColor.DarkCyan);
                 utils.PrintItems(player.havingItems, showIndex, true, false);
                 Console.WriteLine("");
-                Utils.MenuOption("1", $"{menuMessage1}");
+                if (menuMessage1 != "") Utils.MenuOption("1", $"{menuMessage1}");
                 Console.WriteLine("");
                 Utils.MenuOption("0", $"{quitMessage}\n");
                 Console.WriteLine(infoMessage);

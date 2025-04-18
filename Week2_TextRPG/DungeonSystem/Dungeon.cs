@@ -177,8 +177,8 @@ namespace Week2_TextRPG.DungeonSystem
             Console.WriteLine(" 도전 결과 ]");
 
 
-            // 방어력이 부족할 경우 → 40% 확률로 실패
-            if (player.defense < stage.requiredDefense && random.Next(100) < 40)
+            // 방어력이 부족할 경우 → 80% 확률로 실패
+            if (player.defense < stage.requiredDefense && random.Next(100) < 80)
             {
                 Utils.TypeEffect("......");
                 Utils.TypeEffect("당신은 적의 거센 공격을 견디지 못하고 물러섰습니다.\n");
