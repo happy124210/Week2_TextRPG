@@ -49,9 +49,9 @@ namespace Week2_TextRPG.ShopSystem
                     showSellPrice = false;
                     title = "[ 상점 ]";
                     shopItems = ItemDatabase.AllItems.Where(i => !i.isPurchased).ToList();
-                    menuMessage1 = "[1] 아이템 구매하기";
-                    menuMessage2 = "[2] 아이템 판매하기";
-                    quitMessage = "[0] 메인 메뉴로 돌아가기";
+                    menuMessage1 = "아이템 구매하기";
+                    menuMessage2 = "아이템 판매하기";
+                    quitMessage = "메인 메뉴로 돌아가기";
                     infoMessage = "";
                 }
                 // Purchasing 상태
@@ -65,7 +65,7 @@ namespace Week2_TextRPG.ShopSystem
                     shopItems = ItemDatabase.AllItems.Where(i => !i.isPurchased).ToList();
                     menuMessage1 = "";
                     menuMessage2 = "";
-                    quitMessage = "[0] 취소하기";
+                    quitMessage = "취소하기";
                     infoMessage = "구매할 아이템을 선택하세요.";
                 }
                 // Selling 상태
@@ -79,22 +79,21 @@ namespace Week2_TextRPG.ShopSystem
                     shopItems = player.havingItems.ToList();
                     menuMessage1 = "";
                     menuMessage2 = "";
-                    quitMessage = "[0] 취소하기";
+                    quitMessage = "취소하기";
                     infoMessage = "판매할 아이템을 선택하세요.";
                 }
 
                 // 메뉴 출력
-                Console.WriteLine(title);
-                Console.WriteLine("");
-                Console.WriteLine($"보유 골드: {player.gold}원");
-                Console.WriteLine("");
+                Utils.ColoredText($"{title}\n\n", ConsoleColor.DarkCyan);
+                Console.Write($" 보유골드     : ");
+                Utils.ColoredText($"{player.gold}", ConsoleColor.DarkYellow);
+                Console.WriteLine("G\n\n");
                 utils.PrintItems(shopItems, showIndex, showequipped, showPrice, showSellPrice);
-                Console.WriteLine("");
-                Console.WriteLine(menuMessage1);
-                Console.WriteLine(menuMessage2);
-                Console.WriteLine("");
-                Console.WriteLine(quitMessage);
-                Console.WriteLine("────────────────────────────────");
+                Console.WriteLine();
+                if (menuMessage1 != "") Utils.MenuOption("1", $"{menuMessage1}");
+                if (menuMessage1 != "") Utils.MenuOption("2", $"{menuMessage2}");
+                Console.WriteLine();
+                Utils.MenuOption("0", $"{quitMessage}\n");
                 Console.WriteLine(infoMessage);
                 Console.Write(">> ");
 

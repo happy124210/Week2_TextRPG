@@ -1,4 +1,5 @@
-﻿using Week2_TextRPG.PlayerSystem;
+﻿using Week2_TextRPG.Core;
+using Week2_TextRPG.PlayerSystem;
 
 namespace Week2_TextRPG.InnSysytem
 {
@@ -30,27 +31,33 @@ namespace Week2_TextRPG.InnSysytem
                 if (state == InnState.Viewing)
                 {
                     title = "[ 여관 ]";
-                    menuMessage1 = "[1] 잠자기";
-                    quitMessage = "[0] 메인 메뉴로 돌아가기";
+                    menuMessage1 = "잠자기";
+                    quitMessage = "메인 메뉴로 돌아가기";
                     infoMessage = "";
                 }
                 // Sleeping 상태
                 else if (state == InnState.Sleeping)
                 {
                     title = "[ 잠자기 ]";
-                    menuMessage1 = "[1] 확인하기";
-                    quitMessage = "[0] 취소하기";
+                    menuMessage1 = "확인하기";
+                    quitMessage = "취소하기";
                     infoMessage = "잠을 자고 체력을 회복합니다.";
-                }  
+                }
 
                 // 메뉴 출력
-                Console.WriteLine(title);
-                Console.WriteLine("");
-                Console.WriteLine($"보유 골드: {player.gold}원");
-                Console.WriteLine("");
-                Console.WriteLine(menuMessage1);
-                Console.WriteLine(quitMessage);
-                Console.WriteLine("────────────────────────────────");
+                Utils.ColoredText($"{title}\n\n", ConsoleColor.DarkCyan);
+                Console.Write($"▶ 도전자 ");
+                Utils.ColoredText($"{player.name} ", ConsoleColor.Magenta);
+                Console.WriteLine($"정보");
+                Console.WriteLine("=======================\n");
+                Console.Write($"체력     : ");
+                Utils.ColoredText($"{player.hp}\n", ConsoleColor.Green);
+                Console.Write($"골드     : ");
+                Utils.ColoredText($"{player.gold}", ConsoleColor.DarkYellow);
+                Console.WriteLine("G");
+                Console.WriteLine("\n=======================\n");
+                if (menuMessage1 != "") Utils.MenuOption("1", $"{menuMessage1}");
+                Utils.MenuOption("0", $"{quitMessage}\n");
                 Console.WriteLine(infoMessage);
                 Console.Write(">> ");
 
@@ -101,13 +108,13 @@ namespace Week2_TextRPG.InnSysytem
         {
             if (player.gold < InnFee)
             {
-                Console.WriteLine("돈이 부족합니다.");
+                Utils.ColoredText("돈이 부족합니다.", ConsoleColor.DarkRed);
                 Console.ReadKey();
                 return;
             }
             else if (player.hp == 100)
             {
-                Console.WriteLine("이미 체력이 100입니다.");
+                Utils.ColoredText("이미 체력이 100입니다.", ConsoleColor.DarkRed);
                 Console.ReadKey();
                 return;
             }
@@ -115,7 +122,7 @@ namespace Week2_TextRPG.InnSysytem
             {
                 player.gold -= InnFee;
                 player.hp = 100;
-                Console.WriteLine("회복을 완료했습니다.");
+                Utils.ColoredText("회복을 완료했습니다.", ConsoleColor.Green);
                 Console.ReadKey();
                 return;
             }

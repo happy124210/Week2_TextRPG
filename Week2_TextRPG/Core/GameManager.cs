@@ -108,22 +108,21 @@ namespace Week2_TextRPG.Core
 
         public void ShowMainMenu()
         {
-            Console.WriteLine("╔════════════════════════════╗");
-            Console.WriteLine("║    TEXT RPG GAME by yuna   ║");
-            Console.WriteLine("╚════════════════════════════╝");
+            Utils.ColoredText("╔════════════════════════════╗\n", ConsoleColor.DarkCyan);
+            Utils.ColoredText("║    TEXT RPG GAME by yuna   ║\n", ConsoleColor.DarkCyan);
+            Utils.ColoredText("╚════════════════════════════╝\n", ConsoleColor.DarkCyan);
             Console.WriteLine();
             Console.WriteLine("▶ MAIN MENU");
             Console.WriteLine();
-            Console.WriteLine("[1] 캐릭터 능력치");
-            Console.WriteLine("[2] 인벤토리");
-            Console.WriteLine("[3] 상점");
-            Console.WriteLine("[4] 여관");
-            Console.WriteLine("[5] 던전");
-            Console.WriteLine("[6] 저장");
+            Utils.MenuOption("1", "캐릭터 능력치");
+            Utils.MenuOption("2", "인벤토리");
+            Utils.MenuOption("3", "상점");
+            Utils.MenuOption("4", "여관");
+            Utils.MenuOption("5", "던전");
+            Utils.MenuOption("6", "저장");
             Console.WriteLine();
-            Console.WriteLine("[0] 게임 종료");
+            Utils.MenuOption("0", "게임 종료");
             Console.WriteLine();
-            Console.WriteLine("────────────────────────────────");
         }
     }
 }

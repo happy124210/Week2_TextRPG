@@ -34,8 +34,8 @@ namespace Week2_TextRPG.PlayerSystem
                 {
                     showIndex = false;
                     title = "[ 인벤토리 ]";
-                    menuMessage1 = "[1] 장착하기";
-                    quitMessage = "[0] 메인 메뉴로 돌아가기";
+                    menuMessage1 = "장착하기";
+                    quitMessage = "메인 메뉴로 돌아가기";
                     infoMessage = "";
                 }
                 // Managing 상태
@@ -49,15 +49,13 @@ namespace Week2_TextRPG.PlayerSystem
                 }
 
                 // 메뉴 출력
-                Console.WriteLine(title);
-                Console.WriteLine("");
+                Utils.ColoredText($"{title}\n\n", ConsoleColor.DarkCyan);
                 utils.PrintItems(player.havingItems, showIndex, true, false);
                 Console.WriteLine("");
-                Console.WriteLine(menuMessage1);
+                Utils.MenuOption("1", $"{menuMessage1}");
                 Console.WriteLine("");
-                Console.WriteLine(quitMessage);
+                Utils.MenuOption("0", $"{quitMessage}\n");
                 Console.WriteLine(infoMessage);
-                Console.WriteLine("────────────────────────────────");
                 Console.Write(">> ");
 
 

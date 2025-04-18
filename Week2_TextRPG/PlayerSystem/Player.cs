@@ -1,4 +1,6 @@
-﻿using Week2_TextRPG.Data;
+﻿using System.Numerics;
+using Week2_TextRPG.Core;
+using Week2_TextRPG.Data;
 
 namespace Week2_TextRPG.PlayerSystem
 { 
@@ -53,8 +55,7 @@ namespace Week2_TextRPG.PlayerSystem
             Console.Clear();
             DisplayStatus();
 
-            Console.WriteLine("[0] 메인 메뉴로 돌아가기");
-            Console.WriteLine("────────────────────────────────");
+            Utils.MenuOption("0", "메인 메뉴로 돌아가기\n");
             Console.Write(">> ");
 
             string input = Console.ReadLine();
@@ -66,19 +67,26 @@ namespace Week2_TextRPG.PlayerSystem
             string weaponName = havingItems.FirstOrDefault(i => i.isEquipped && i.itemType == ItemType.Weapon)?.name ?? "없음";
             string armorName = havingItems.FirstOrDefault(i => i.isEquipped && i.itemType == ItemType.Armor)?.name ?? "없음";
 
-            Console.WriteLine("[ 캐릭터 능력치 확인 ]\n");
-            Console.WriteLine("==================================");
+            Utils.ColoredText("[ 캐릭터 능력치 확인 ]\n\n", ConsoleColor.DarkCyan);
+            Console.WriteLine("==================================\n");
             Console.WriteLine($" 이름     : {name}");
             Console.WriteLine($" 레벨     : Lv. {level}");
             Console.WriteLine($" 직업     : {job}");
-            Console.WriteLine($" 공격력   : {attack} {bonusAttack}");
-            Console.WriteLine($" 방어력   : {defense} {bonusDefense}");
-            Console.WriteLine($" 체력     : {hp}");
-            Console.WriteLine($" 골드     : {gold}G");
-            Console.WriteLine($" 무기     : {weaponName}");
-            Console.WriteLine($" 방어구   : {armorName}");
-            Console.WriteLine("==================================");
+            Console.Write($" 공격력   : {attack}");
+            Utils.ColoredText($" {bonusAttack}\n", ConsoleColor.DarkRed);
+            Console.Write($" 방어력   : {attack}");
+            Utils.ColoredText($" {bonusDefense}\n", ConsoleColor.DarkRed);
+            Console.Write($" 체력     : ");
+            Utils.ColoredText($"{hp}\n", ConsoleColor.Green);
+            Console.Write($" 골드     : ");  
+            Utils.ColoredText($"{gold}", ConsoleColor.DarkYellow);
+            Console.WriteLine("G");
+            Console.Write(" 무기     : ");
+            Utils.ColoredText($"{weaponName}\n", ConsoleColor.Gray);
+            Console.Write(" 방어구   : ");
+            Utils.ColoredText($"{armorName}\n", ConsoleColor.Gray);
             Console.WriteLine();
+            Console.WriteLine("==================================\n");
         }
 
         public void UpdateStats(IEnumerable<Item> equippedItems)
@@ -118,15 +126,24 @@ namespace Week2_TextRPG.PlayerSystem
             {
                 // 경험치 초기화
                 exp -= level * 20;
-                level++;
-
-                Console.WriteLine($"레벨이 올랐습니다! → Lv. {level}");
-                hp = 100;
 
                 // 능력치 상승
+                level++;
+                hp = 100;
                 baseAttack++;
                 baseDefense++;
-                Console.WriteLine($"공격력: {attack} (+1) 방어력: {defense} (+1)");
+
+                // 안내 메세지 출력
+                Console.WriteLine($" ! 레벨이 올랐습니다! → Lv. {level}");
+                Console.WriteLine($" ! 체력이 회복되었습니다.");
+                Console.WriteLine("=======================\n");
+                Console.Write($" 체력     : ");
+                Utils.ColoredText($"{hp}\n", ConsoleColor.Green);
+                Console.Write($" 공격력   : {attack}");
+                Utils.ColoredText($"(+1)\n", ConsoleColor.DarkRed);
+                Console.Write($" 방어력   : {attack}");
+                Utils.ColoredText($"(+1)\n", ConsoleColor.DarkRed);
+                Console.WriteLine("\n=======================");
             }
         }
     }
