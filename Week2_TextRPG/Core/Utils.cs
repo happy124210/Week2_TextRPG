@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using Week2_TextRPG.Data;
+﻿using Week2_TextRPG.Data;
 
 namespace Week2_TextRPG.Core
 {
@@ -62,7 +56,6 @@ namespace Week2_TextRPG.Core
 
             foreach (var item in items)
             {
-
                 string prefix = showIndex ? $"[{displayIndex++}] " : "";
                 string priceLabel = showPrice ? $" | {item.price}원 " : "";
                 string sellPriceLabel = showSellPrice ? $" | {(int)(item.price * 0.85f)}원 " : "";

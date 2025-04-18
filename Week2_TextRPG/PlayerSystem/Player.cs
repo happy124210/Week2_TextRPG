@@ -1,5 +1,4 @@
-﻿using Week2_TextRPG.Core;
-using Week2_TextRPG.Data;
+﻿using Week2_TextRPG.Data;
 
 namespace Week2_TextRPG.PlayerSystem
 { 
@@ -31,24 +30,23 @@ namespace Week2_TextRPG.PlayerSystem
             havingItems = new List<Item>();
         }
 
-        private static int BaseAttack = 10;
-        private static int BaseDefense = 5;
-
-        public int level = 0;
+        public int level = 1;
         public string name;
         public string job = "전사";
-        public int attack = BaseAttack;
-        public int defense = BaseDefense;
+        public int attack;
+        public int defense;
         public int hp = 100;
         public int exp = 0;
         public int gold = 1500;
+        public bool isIntro = true;
 
         public string bonusAttack = "";
         public string bonusDefense = "";
 
-        public bool isIntro = true;
-
         public List<Item> havingItems = new List<Item>();
+
+        private int baseAttack = 10;
+        private int baseDefense = 5;
 
         public void StatusMenu()
         {
@@ -85,8 +83,8 @@ namespace Week2_TextRPG.PlayerSystem
 
         public void UpdateStats(IEnumerable<Item> equippedItems)
         {
-            attack = BaseAttack;
-            defense = BaseDefense;
+            attack = baseAttack;
+            defense = baseDefense;
             bonusAttack = "";
             bonusDefense = "";
 
@@ -105,16 +103,30 @@ namespace Week2_TextRPG.PlayerSystem
                 }   
             }
         }
-        private void GainExp(int amount)
+
+        public IEnumerable<Item> GetEquippedItems()
+        {
+            return havingItems.Where(item => item.isEquipped);
+        }
+
+        public void GainExp(int amount)
         {
             exp += amount;
 
-            // 레벨업 조건
-            if (exp >= level * 20)
+            // 레벨업
+            while (exp >= level * 20)
             {
+                // 경험치 초기화
                 exp -= level * 20;
                 level++;
-                Console.WriteLine("레벨이 올랐습니다!");
+
+                Console.WriteLine($"레벨이 올랐습니다! → Lv. {level}");
+                hp = 100;
+
+                // 능력치 상승
+                baseAttack++;
+                baseDefense++;
+                Console.WriteLine($"공격력: {attack} (+1) 방어력: {defense} (+1)");
             }
         }
     }

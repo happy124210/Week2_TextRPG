@@ -1,6 +1,4 @@
-﻿
-
-namespace Week2_TextRPG.UI
+﻿namespace Week2_TextRPG.UI
 {
     public class Dialogue
     {

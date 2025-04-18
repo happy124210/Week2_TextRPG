@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Week2_TextRPG.Core;
+﻿using Week2_TextRPG.Core;
 using Week2_TextRPG.Data;
 
 namespace Week2_TextRPG.PlayerSystem
@@ -115,13 +114,10 @@ namespace Week2_TextRPG.PlayerSystem
                 Console.WriteLine($"{selected.name}을(를) 장착했습니다.");
             }
 
-            player.UpdateStats(GetEquippedItems());
+            player.UpdateStats(player.GetEquippedItems());
             Console.ReadKey();
         }
 
-        public IEnumerable<Item> GetEquippedItems()
-        {
-            return player.havingItems.Where(item => item.isEquipped);
-        }
+        
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Week2_TextRPG.PlayerSystem;
 using Week2_TextRPG.Data;
-using Week2_TextRPG.Core;
-using System.Xml.Serialization;
-using System;
 
 namespace Week2_TextRPG.DungeonSystem
 {
@@ -162,22 +159,23 @@ namespace Week2_TextRPG.DungeonSystem
                 Console.WriteLine("한 줄기 빛이 길을 비춥니다. 당신은 무사히 돌아왔습니다.\n");
 
                 // 체력 소모 계산
-                int baseDamage = random.Next(20, 36); // 20~35
+                int baseDamage = random.Next(20, 36);
                 int diff = stage.requiredDefense - player.defense;
                 int finalDamage = Math.Max(1, baseDamage + diff); // 최소 1
 
                 player.hp -= finalDamage;
-                if (player.hp < 0) player.hp = 0;
+                if (player.hp < 0) player.hp = 0; // 0 이하 방지
 
                 Console.WriteLine($"체력 -{finalDamage} (현재 HP: {player.hp})");
 
+                // 전리품 계산
                 int totalReward = CalculateReward(stage);
 
                 player.gold += totalReward;
-                player.exp += stage.rewardExp;
+                player.GainExp(stage.rewardExp);
 
-                Console.WriteLine($"골드 +{totalReward} ({stage.baseReward} + 추가 {totalReward - stage.baseReward})");
-                Console.WriteLine($"경험치 +{stage.rewardExp}");
+                Console.WriteLine($"획득 골드 +{totalReward} ({stage.baseReward} + 추가 {totalReward - stage.baseReward})");
+                Console.WriteLine($"획득 경험치 +{stage.rewardExp}");
             }
 
             Console.Write("\n계속하려면 아무 키나 누르세요.");
